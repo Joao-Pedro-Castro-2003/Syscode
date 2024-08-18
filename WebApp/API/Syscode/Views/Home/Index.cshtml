@@ -1,0 +1,60 @@
+﻿@model List<PopulacaoModel>;
+@{
+	ViewData["Title"] = "Exercício";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Pesquisa por País</h1>
+</div>
+<form asp-controller="Home" asp-action="Index" method="get">
+	<div class="form-group">
+		<label>Entre com um país</label>
+		<input type="text" class="form-control" name="pais" id="InputPais" placeholder="Digite um país (Em Inglês)">
+	</div>
+
+	<button style="margin-top: 10px;" type="submit" class="btn btn-primary">Pesquisar</button>
+</form>
+
+@if (TempData["MensagemSucesso"] != null)
+{
+	<div style="margin-top: 10px" class="alert alert-success" role="alert">
+		@TempData["MensagemSucesso"]
+	</div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+	<div style="margin-top: 10px" class="alert alert-danger" role="alert">
+		@TempData["MensagemErro"]
+	</div>
+}
+
+@if (Model != null && Model.Any())
+{
+	<div class="text-center">
+		<h1 class="display-4">Listagem de População</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Ano</th>
+					<th scope="col">População</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				@foreach (PopulacaoModel populacao in Model)
+				{
+					<tr>
+						<td>@populacao.Year</td>
+						<td>@populacao.Population</td>
+					</tr>
+				}
+
+			</tbody>
+		</table>
+
+	</div>
+}
+
+
